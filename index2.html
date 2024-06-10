@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Attendance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 60%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>School Attendance</h1>
+    <form id="attendanceForm">
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Present</th>
+                    <th>Absent</th>
+                </tr>
+            </thead>
+            <tbody id="studentList">
+                <tr>
+                    <td><input type="text" name="studentName1" value="John Doe" placeholder="Student Name"></td>
+                    <td><input type="radio" name="attendance1" value="Present" checked></td>
+                    <td><input type="radio" name="attendance1" value="Absent"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" name="studentName2" value="Jane Smith" placeholder="Student Name"></td>
+                    <td><input type="radio" name="attendance2" value="Present"></td>
+                    <td><input type="radio" name="attendance2" value="Absent" checked></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button type="button" onclick="addRow()">Add Student</button>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+    <script>
+        let studentCount = 2;
+
+        function addRow() {
+            studentCount++;
+            const table = document.getElementById('studentList');
+            const row = table.insertRow();
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            const cell3 = row.insertCell(2);
+
+            cell1.innerHTML = <input type="text" name="studentName${studentCount}" placeholder="Student Name">;
+            cell2.innerHTML = <input type="radio" name="attendance${studentCount}" value="Present">;
+            cell3.innerHTML = <input type="radio" name="attendance${studentCount}" value="Absent">;
+        }
+
+        document.getElementById('attendanceForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let data = new FormData(event.target);
+            console.log('Attendance Data:');
+            for (let [name, value] of data.entries()) {
+                console.log(${name}: ${value});
+            }
+        });
+    </script>
+
+</body>
+</html>
